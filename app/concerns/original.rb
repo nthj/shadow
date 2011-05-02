@@ -105,14 +105,19 @@ class Original < AWS::S3::S3Object
       begin
         yield
       rescue AWS::S3::NoSuchKey, MongoMapper::DocumentNotFound => e
-        # mark as deleted
+        Logger.info "Key not found while processing #{key}"
       end
+    end
+    
+    def before_perform_log_job key
+      Logger.info "Processing #{key}"
     end
     
     def perform key
       Dir[Rails.root.join('app', 'concerns', 'processors', '*.rb')].map { |f| 
         "Processors::#{File.basename(f, '.rb').classify}".constantize
       }.each do |processor|
+        Logger.info "Applying processor #{processor} to #{key}"
         processor.perform key
       end
     end    
