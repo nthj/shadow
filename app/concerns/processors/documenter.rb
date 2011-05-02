@@ -11,7 +11,6 @@ module Processors
             photo.photographed_at = original.photographed_at
             photo.photographer    = original.photographer
             photo.point           = original.point
-            photo.rating          = original.rating
             photo.tags            = original.tags
             photo.save
           end

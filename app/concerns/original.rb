@@ -96,6 +96,28 @@ class Original < AWS::S3::S3Object
       end
   end
   
+  module Processable
+    def after_perform_publish_photo key
+      Photo.find_by_key(key).publish!
+    end
+    
+    def around_perform_handle_deletions key
+      begin
+        yield
+      rescue AWS::S3::NoSuchKey, MongoMapper::DocumentNotFound => e
+        # mark as deleted
+      end
+    end
+    
+    def perform key
+      Dir[Rails.root.join('app', 'concerns', 'processors', '*.rb')].map { |f| 
+        "Processors::#{File.basename(f, '.rb').classify}".constantize
+      }.each do |processor|
+        processor.perform key
+      end
+    end    
+  end
+  
   module Temporal
     extend ActiveSupport::Memoizable
     
@@ -107,7 +129,7 @@ class Original < AWS::S3::S3Object
       def stream_to_temporary_file
         FileUtils.mkdir_p File.dirname filename
 
-        open(filename, 'w') do |file|
+        open(filename, 'wb') do |file|
           value(:reload) do |chunk|
             file.write chunk
           end
@@ -115,12 +137,13 @@ class Original < AWS::S3::S3Object
       end
 
       def filename
-        Rails.root.join 'tmp', 'processing', @original.key
+        Rails.root.join 'tmp', 'processing', key
       end
       memoize :filename
   end
   
   extend ActiveSupport::Memoizable
+  extend Processable
   
   include Detailed
   include Temporal
@@ -144,17 +167,23 @@ class Original < AWS::S3::S3Object
   @queue = 'processor'
   
   class << self
+    def find key
+      key    = key.remove_extended unless key.valid_utf8?
+      bucket = Bucket.find(current_bucket, :marker => key.previous, :max_keys => 1)
+      if (object = bucket.objects.first) && object.key == key
+        object 
+      else 
+        raise ::AWS::S3::NoSuchKey.new("No such key '#{key}'", bucket)
+      end
+    end
+  
     def pending
       Bucket.find(current_bucket).objects.delete_if(&:processed?).keep_if(&:image?)
     end
-    
-    def perform key
-      Dir[Rails.root.join('app', 'concerns', 'processors', '*.rb')].map { |f| 
-        "Processors::#{File.basename(f, '.rb').classify}".constantize
-      }.each do |processor|
-        processor.perform key
-      end
-    end
+  end
+  
+  def key
+    Key.new super
   end
   
   def image?

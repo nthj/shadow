@@ -8,6 +8,7 @@ class Photo
   key :orientation,     Orientation
   key :photographed_at, Time
   key :point,           Point
+  key :published_at,    Time
   key :rating,          Rating
   key :tags,            Set,          :typecast => 'Tag'
   key :views,           Integer,      :default => 0
@@ -33,8 +34,13 @@ class Photo
       if Photo.count.zero?
         Time.at(0)
       else
-        Photo.order(:last_modified.desc).first.last_modified
+        Photo.sort(:last_modified.desc).first.last_modified || Time.at(0)
       end
     end
+  end
+  
+  def publish!
+    self.published_at = Time.now
+    save
   end
 end

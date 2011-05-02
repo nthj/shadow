@@ -7,8 +7,8 @@ module Processors
   class Previewer
     class << self
       def perform key
-        original  = Original.find key or raise Original::ObjectNotFound
-        photo     = Photo.find key or raise MongoMapper::DocumentNotFound 
+        original  = Original.find(key) or raise AWS::S3::NoSuchKey
+        photo     = Photo.find(key) or raise MongoMapper::DocumentNotFound 
         
         # process photo into thumbnail
         # save asset
