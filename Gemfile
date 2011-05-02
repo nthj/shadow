@@ -11,6 +11,7 @@ gem 'pixel',                                    :git => 'git://github.com/nthj/p
 gem 'rails',                '~> 3'
 gem 'railings',             '>= 0.0.4'
 gem 'resque'
+gem 'rmagick',                                  :require => 'RMagick'
 gem 'sprockets'
 
 group :development do
