@@ -63,6 +63,7 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fssm (0.2.7)
+    geokit (1.5.0)
     haml (3.1.1)
     i18n (0.5.0)
     jsmin (1.0.1)
@@ -155,6 +156,7 @@ DEPENDENCIES
   bson_ext
   compass
   dalli
+  geokit
   haml
   jsmin
   konpasu

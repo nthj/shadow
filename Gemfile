@@ -1,8 +1,9 @@
 source 'http://rubygems.org'
 
-gem 'aws-s3'
+gem 'aws-s3',                                   :require => 'aws/s3'
 gem 'bson_ext'
 gem 'compass'
+gem 'geokit'
 gem 'haml'
 gem 'konpasu'
 gem 'mongo_mapper',                             :git => 'git://github.com/jnunemaker/mongomapper.git'
