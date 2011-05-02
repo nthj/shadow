@@ -1,10 +1,9 @@
 Shadow::Application.configure do
-  config.cache_classes                     = true
-  config.action_controller.perform_caching = true
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
-  config.action_controller.logger          = Logger.new(STDOUT)
-
-  config.serve_static_assets = true
+  config.cache_classes                      = true
+  config.action_controller.perform_caching  = true
+  config.action_dispatch.x_sendfile_header  = "X-Accel-Redirect"
+  config.action_controller.logger           = Logger.new(STDOUT)
+  config.serve_static_assets                = true
   
   config.cache_store = :dalli_store, { :expires_in => 1.day, :compress => true, :compress_threshold => 64*1024 }
 
