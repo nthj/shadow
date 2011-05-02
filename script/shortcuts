@@ -1,0 +1,35 @@
+#!/bin/bash
+
+source config/env
+
+# 
+# Shortcuts
+# 
+
+case $1 in
+	'' )
+		;;
+	'logs' )
+		heroku logs --tail --app shadow;;
+	'm' )
+		mate .;;
+	'production' ) 
+		heroku switch shadow;;
+	'rake' ) 
+		rake $2;;
+  's' )
+		bundle exec unicorn;;
+	'setup' )
+		cp config/env ~/.dotfiles/site-env;;
+	'staging' )
+		heroku switch "shadow-staging";;
+  'styled' )
+		export STYLESHEET_DEVELOPMENT=true
+		bundle exec unicorn;;	
+  'test' )
+		export RAILS_ENV='test'
+		if [[ $2 == 'features' ]]; then export AUTOFEATURE='true'; fi
+		bundle exec autotest;;
+  * )
+		rails "$@";;
+esac
