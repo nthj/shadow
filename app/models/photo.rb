@@ -3,6 +3,8 @@ class Photo
   
   key :description,     String
   key :dimensions,      Dimensions
+  key :etag,            String
+  key :last_modified,   Time
   key :orientation,     Orientation
   key :photographed_at, Time
   key :point,           Point
@@ -25,4 +27,14 @@ class Photo
   scope :by_ratio,  ->(ratio)   { where 'dimensions.ratio' => ratio.query }
   scope :by_tag,    ->(tag)     { tag.blank? ? query : where(:tags => tag)  }
   scope :random,    ->          { skip(rand(count)) }
+  
+  class << self
+    def last_processing_run
+      if Photo.count.zero?
+        Time.at(0)
+      else
+        Photo.order(:last_modified.desc).first.last_modified
+      end
+    end
+  end
 end
