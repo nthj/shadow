@@ -141,6 +141,8 @@ class Original < AWS::S3::S3Object
     end
   end
   
+  @queue = 'processor'
+  
   class << self
     def pending
       Bucket.find(current_bucket).objects.delete_if(&:processed?).keep_if(&:image?)
