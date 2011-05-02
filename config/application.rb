@@ -20,7 +20,7 @@ module Shadow
       g.test_framework  :rspec, :fixture => false, :views => false
     end
     
-    %w(app/concerns app/jobs lib).each do |path|
+    %w(app/concerns app/concerns/extensions app/jobs lib).each do |path|
       config.autoload_paths << Rails.root.join(path)
     end
   end

@@ -6,6 +6,14 @@ class Key < String
       new value.to_s
     end
     
+    def set_types_from_yaml yaml
+      self.types = yaml.map(&:first) 
+    end
+    
+    def set_types_from_yaml_file file
+      set_types_from_yaml YAML::load_file file
+    end
+    
     def types= names
       names.each do |name|
         define_method name.to_sym do
@@ -20,7 +28,7 @@ class Key < String
   end
   
   def exists?
-    Shadow::Asset.exists? self
+    Asset.exists? self
   end
   
   def initialize value = ''

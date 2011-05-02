@@ -13,7 +13,7 @@ class Location
   
   class << self
     def from_point point
-      returning Array.new do |locations|
+      Array.new.tap do |locations|
         reverse_geocode(point).all.each do |placemark|
           locations << new(
             :point  => Point.new(

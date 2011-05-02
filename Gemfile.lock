@@ -7,6 +7,12 @@ GIT
       activesupport (~> 3.0)
       plucky (~> 0.3.8)
 
+GIT
+  remote: git://github.com/nthj/pixel.git
+  revision: 68ca32ffcb9a2bf86e3151f61c5e2282f458f72e
+  specs:
+    pixel (0.2.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -162,6 +168,7 @@ DEPENDENCIES
   konpasu
   mongo_mapper!
   pathy
+  pixel!
   railings (>= 0.0.4)
   rails (~> 3)
   resque
