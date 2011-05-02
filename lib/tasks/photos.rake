@@ -5,6 +5,7 @@ namespace :photos do
       puts "#{original.key} - #{original.about['last-modified']}"
       puts "... (#{Original.pending.count - 15} more)" and break if count ||= 0 and count > 15
     end
+    puts "No photos pending." if Original.pending.blank? 
   end
   
   desc 'Process any photos run since '

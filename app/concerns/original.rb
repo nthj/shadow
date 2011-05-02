@@ -143,7 +143,7 @@ class Original < AWS::S3::S3Object
   
   class << self
     def pending
-      Bucket.find(current_bucket).objects.delete_if(&:processed?)
+      Bucket.find(current_bucket).objects.delete_if(&:processed?).keep_if(&:image?)
     end
     
     def perform key
@@ -155,7 +155,11 @@ class Original < AWS::S3::S3Object
     end
   end
   
+  def image?
+    about['content-length'].to_i > 0
+  end
+  
   def processed?
-    last_modified <= Photo.last_processing_run
+    Time.parse(last_modified) <= Photo.last_processing_run
   end
 end
