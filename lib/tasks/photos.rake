@@ -11,7 +11,7 @@ namespace :photos do
   desc 'Process any photos run since '
   task :process => :environment do
     Original.pending.each do |original|
-      puts Logger.info "Enqueing #{original.key}"
+      puts "Enqueing #{original.key}"
       Resque.enqueue Original, original.key
     end
   end

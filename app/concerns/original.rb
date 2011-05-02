@@ -177,7 +177,16 @@ class Original < AWS::S3::S3Object
     end
   
     def pending
-      Bucket.find(current_bucket).objects.delete_if(&:processed?).keep_if(&:image?)
+      Array.new.tap do |pending|
+        marker = ''
+        until marker.nil? do
+          Bucket.find(current_bucket).objects(:marker => marker).delete_if(&:processed?).keep_if(&:image?).tap do |objects|
+            pending << objects
+            marker = objects.blank? ? nil : objects.last.key
+            puts "Queueing next batch of pending originals, starting at #{marker}" if marker
+          end
+        end
+      end
     end
   end
   
