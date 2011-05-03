@@ -64,4 +64,11 @@ describe Key do
   it "should let us prepend a photographer's key" do
     Key.new('cloudy-day.jpg').own('above-photography').should eql 'above-photography/cloudy-day.jpg'
   end
+  
+  it "should know whether it is an image" do
+    Key.new('above-photography/').image?.should be_false
+    Key.new('above-photography/hi.jpg').image?.should be_true
+    Key.new('above-photography/hi.jpeg').image?.should be_true
+    Key.new('above-photography/hi.JPG').image?.should be_true
+  end
 end

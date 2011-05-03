@@ -195,7 +195,7 @@ class Original < AWS::S3::S3Object
   end
   
   def image?
-    about['content-length'].to_i > 0
+    key.image?
   end
   
   def processed?

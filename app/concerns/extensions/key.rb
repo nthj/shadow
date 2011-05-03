@@ -54,6 +54,7 @@ class Key < String
   def valid?
     self =~ EXTENSION
   end
+  alias image? valid?
   
   private
     alias method_missing default
