@@ -1,7 +1,7 @@
 class Original
   module Processable
     def after_perform_publish_photo key
-      puts "Publishing... ".ljust(justifiable) + key
+      puts "Publishing... ".ljust(justifiable + 10) + key
       Photo.find_by_key(key).publish!
     end
   
@@ -14,7 +14,7 @@ class Original
     end
   
     def before_perform_log_job key
-      puts "Processing... ".ljust(justifiable) + key
+      puts "Processing... ".ljust(justifiable + 10) + key
     end
     
     def justifiable
