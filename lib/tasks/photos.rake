@@ -4,6 +4,17 @@ namespace :photos do
     Original::Report.run
   end
   
+  desc 'Show average processing time'
+  task :benchmark => :environment do
+    times = Photo.where(:processing_time => { :$ne => nil })
+    if times.count.zero?
+      puts "Sorry, no times to sample from."
+    else
+      avg = times.sum(&:processing_time) / times.count
+      puts "Average: #{sprintf('%.2f', avg)} seconds, or ~#{(3600/avg).ceil}/worker/hour, or maximum of #{(3600/avg).ceil * 50}/hour (sampling #{times.count} photos)"
+    end
+  end
+  
   desc 'Show bucket'
   task :bucket => :environment do
     puts Original::Bucket.find(:max_keys => 0).inspect

@@ -12,6 +12,13 @@ class Original
         puts "[ERROR] Key not found while processing #{key}"
       end
     end
+    
+    def around_perform_time_processors key
+      time = Benchmark.realtime do
+        yield
+      end
+      Photo.find_by_key(key).benchmark time
+    end
   
     def before_perform_log_job key
       puts "Processing... ".ljust(justifiable + 10) + key
