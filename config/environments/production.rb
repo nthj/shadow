@@ -1,7 +1,7 @@
 Shadow::Application.configure do
   config.cache_classes                      = true
   config.action_controller.perform_caching  = true
-  config.action_dispatch.x_sendfile_header  = "X-Accel-Redirect"
+  config.action_dispatch.x_sendfile_header  = ''
   config.action_controller.logger           = Logger.new(STDOUT)
   config.serve_static_assets                = true
   
