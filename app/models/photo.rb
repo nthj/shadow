@@ -39,6 +39,11 @@ class Photo
     end
   end
   
+  def clear!
+    self.last_modified = nil
+    save
+  end
+  
   def publish!
     self.published_at = Time.now
     save
