@@ -8,10 +8,7 @@ module Processors
   class Showcaser
     class << self
       def perform key
-        original  = Original.find(key) or raise AWS::S3::NoSuchKey
-        photo     = Photo.find_by_key(key) or raise MongoMapper::DocumentNotFound
-        
-             
+        Original.find(key).compress(100).resize(1200, 1000).to(:fit).watermark.save
       end
     end
   end

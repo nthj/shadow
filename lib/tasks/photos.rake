@@ -30,6 +30,13 @@ namespace :photos do
       Resque.enqueue Original::Pending
     end
     
+    desc 'Process all photos currently in database'
+    task :reprocess => :environment do
+      Photo.all.each do |photo|
+        Resque.enqueue Original, photo.key
+      end
+    end
+    
     desc 'Process all photos'
     task :all => [:clear, :pending]
   end

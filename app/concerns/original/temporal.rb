@@ -1,10 +1,6 @@
 class Original
   module Temporal
     extend ActiveSupport::Memoizable
-  
-    def clean
-      File.delete filename if File.exists? filename
-    end
 
     protected
       def stream_to_temporary_file

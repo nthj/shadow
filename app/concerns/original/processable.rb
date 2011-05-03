@@ -2,6 +2,7 @@ class Original
   module Processable
     def after_perform_publish_photo key
       Photo.find_by_key(key).publish!
+      puts "Published #{key}"
     end
   
     def around_perform_handle_deletions key
@@ -23,7 +24,12 @@ class Original
         justifiable = processors.map(&:name).sort_by(&:length).first.length
         processors.each do |processor|
           puts "Applying #{(processor.name.demodulize + '...').ljust(justifiable)} #{key}"
-          processor.perform key
+          begin
+            processor.perform key
+          rescue Exception => e
+            puts "#{processor.name.demodulize} failed to apply (#{e.class.name})"
+            raise e
+          end
         end
       end
     end    

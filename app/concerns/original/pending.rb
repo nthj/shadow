@@ -4,7 +4,7 @@ class Original
     
     class << self
       def perform
-        Original.pending.each do |original|
+        Original.pending do |original|
           puts "Enqueueing #{original.key}"
           Resque.enqueue Original, original.key
         end

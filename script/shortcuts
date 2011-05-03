@@ -13,6 +13,8 @@ case $1 in
 		heroku logs --tail --app shadow;;
 	'm' )
 		mate .;;
+	'processing' )
+		heroku logs --tail --app shadow -p worker;;
 	'production' ) 
 		heroku switch shadow;;
 	'rake' ) 

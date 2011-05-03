@@ -9,8 +9,12 @@ class Original < AWS::S3::S3Object
   extend ActiveSupport::Memoizable
   extend Processable
   
+  include Compressable
   include Detailed
+  include Resizable
+  include Savable
   include Temporal
+  include Watermarkable
     
   set_current_bucket_to ENV['AMAZON_S3_SOURCE_BUCKET']
   
@@ -32,8 +36,14 @@ class Original < AWS::S3::S3Object
       Bucket.find(:max_keys => 1).first
     end
     
-    def pending options = { }
-      Bucket.all.delete_if &:processed?
+    def pending &block
+      if block_given?
+        Bucket.all do |pending|
+          ->(object) { yield(object) unless object.processed? }.call(pending)
+        end
+      else
+        Bucket.all.delete_if &:processed?
+      end
     end
   end
   
