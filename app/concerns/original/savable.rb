@@ -23,10 +23,10 @@ class Original
       @image.write(filename) { |image| self.quality = quality unless quality.zero? }
       @image.destroy!
       
-      puts "-----> Saving #{key} as #{key.send(as)}"
+      puts "Saving #{as}...".ljust(original.justifiable) + key
       Asset.store key.send(as), open(filename), :access => :public_read
       
-      puts "-----> Removing processed file #{key}"
+      puts "Removing temporary file...".ljust(original.justifiable) + key
       File.delete filename if File.exists? filename
       
       self
