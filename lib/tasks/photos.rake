@@ -39,12 +39,13 @@ namespace :photos do
     desc 'Process any photos modified since last run'
     task :pending => :environment do
       Photographer.all.each do |photographer|
-        Resque.enqueue Original::Pending, photographer.prefix
+        Resque.enqueue Original::Pending, :prefix => photographer.prefix
       end
     end
     
     desc 'Process all photos currently in database'
     task :reprocess => :environment do
+      puts "Re-processing #{Photo.count} photos"
       Photo.all.each do |photo|
         Resque.enqueue Original, photo.key
       end

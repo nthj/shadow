@@ -29,6 +29,9 @@ class Original
     end
   
     def perform key
+      o = Original.find(key) 
+      return if o.processed? unless o.image?
+      
       processors.each do |processor|
         puts "Applying #{(processor.name.demodulize + '...').ljust(justifiable)} #{key}"
         begin
