@@ -36,13 +36,13 @@ class Original < AWS::S3::S3Object
       Bucket.find(:max_keys => 1).first
     end
     
-    def pending &block
+    def pending options = { }, &block
       if block_given?
-        Bucket.all do |pending|
+        Bucket.all(options) do |pending|
           ->(object) { yield(object) unless object.processed? }.call(pending)
         end
       else
-        Bucket.all.delete_if &:processed?
+        Bucket.all(options).delete_if &:processed?
       end
     end
   end

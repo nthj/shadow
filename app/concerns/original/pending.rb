@@ -3,9 +3,9 @@ class Original
     @queue = 'processor'
     
     class << self
-      def perform
-        Original.pending do |original|
-          puts "Enqueueing #{original.key}"
+      def perform prefix = nil
+        Original.pending(:prefix => prefix) do |original|
+          puts "Enqueueing...".ljust(original.justifiable + 10) + original.key
           Resque.enqueue Original, original.key
         end
       end
