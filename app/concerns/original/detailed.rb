@@ -43,7 +43,7 @@ class Original
     end
 
     def photographed_at
-      Time.parse(exif('DateTimeOriginal').to_s.gsub(/^([0-9]{4}):([0-9]{2}):([0-9]{2})/, '\\1/\\2/\\3')).utc
+      Time.parse(exif('DateTimeOriginal').to_s.gsub(/^([0-9]{4}):([0-9]{2}):([0-9]{2})/, '\\1/\\2/\\3')).utc rescue nil
     end
 
     def photographer
