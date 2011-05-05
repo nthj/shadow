@@ -1,5 +1,7 @@
 module Processors
   class Documenter
+    extend Resque::Plugins::HerokuAutoscaler
+    
     class << self
       def perform key
         Original.find(key).tap do |original|

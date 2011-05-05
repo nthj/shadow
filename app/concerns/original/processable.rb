@@ -1,5 +1,7 @@
 class Original
   module Processable
+    include Resque::Plugins::HerokuAutoscaler
+
     def after_perform_publish_photo key
       puts "Publishing... ".ljust(justifiable + 10) + key
       Photo.find_by_key(key).publish!

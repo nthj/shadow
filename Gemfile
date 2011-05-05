@@ -10,7 +10,7 @@ gem 'mongo_mapper',                             :git => 'git://github.com/jnunem
 gem 'pixel',                                    :git => 'git://github.com/nthj/pixel.git'
 gem 'rails',                '~> 3'
 gem 'railings',             '>= 0.0.4'
-gem 'resque'
+gem 'resque-heroku-autoscaler'
 gem 'rmagick',                                  :require => 'RMagick'
 gem 'sprockets'
 

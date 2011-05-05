@@ -1,5 +1,7 @@
 class Original
   class Pending
+    extend Resque::Plugins::HerokuAutoscaler
+    
     @queue = 'processor'
     
     class << self

@@ -7,6 +7,7 @@
 module Processors
   class Cartographer
     extend Processors::Extensions::RateLimitable
+    extend Resque::Plugins::HerokuAutoscaler
     
     @limit = 1.second
 

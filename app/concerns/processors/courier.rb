@@ -1,5 +1,7 @@
 module Processors
   class Courier
+    extend Resque::Plugins::HerokuAutoscaler
+    
     class << self
       def perform key
         # Receivers
