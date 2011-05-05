@@ -31,7 +31,7 @@ class Original
     end
   
     def perform key
-      o = Original.find(key) 
+      o = find key
       return if o.processed? unless o.image?
       
       processors.each do |processor|
