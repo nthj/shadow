@@ -1,5 +1,6 @@
 class Photo
   include MongoMapper::Document
+  include Plugins::Benchmarkable
   
   key :description,     String
   key :dimensions,      Dimensions
@@ -8,7 +9,6 @@ class Photo
   key :orientation,     Orientation
   key :photographed_at, Time
   key :point,           Point
-  key :processing_time, Float
   key :published_at,    Time
   key :rating,          Rating
   key :tags,            Set,          :typecast => 'Tag'
@@ -38,16 +38,6 @@ class Photo
         Photo.sort(:last_modified.desc).first.last_modified || Time.at(0)
       end
     end
-  end
-  
-  def benchmark seconds
-    self.processing_time = seconds
-    save
-  end
-  
-  def clear!
-    self.last_modified = nil
-    save
   end
   
   def publish!

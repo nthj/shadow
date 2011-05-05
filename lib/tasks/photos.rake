@@ -1,61 +1,81 @@
 namespace :photos do
-  desc 'Show all photos'
-  task :all => :environment do
-    Original::Report.run
-  end
-  
-  desc 'Show average processing time'
-  task :benchmark => :environment do
-    times = Photo.where(:processing_time => { :$ne => nil })
-    if times.count.zero?
-      puts "Sorry, no times to sample from."
-    else
-      avg = times.sum(&:processing_time) / times.count
-      puts "Average: #{sprintf('%.2f', avg)} seconds, or ~#{(3600/avg).ceil}/worker/hour, or maximum of #{(3600/avg).ceil * 50}/hour (sampling #{times.count} photos)"
-    end
-  end
-  
-  desc 'Show bucket'
-  task :bucket => :environment do
-    puts Original::Bucket.find(:max_keys => 0).inspect
-  end
-  
-  desc 'Show first photo'
-  task :first => :environment do
-    puts Original.first.inspect
-  end
-  
-  desc 'Show pending photos'
-  task :pending => :environment do
-    Original::PendingReport.run
-  end
-  
-  namespace :process do
-    desc 'Mark all photos as pending'
+  namespace :benchmark do
+    desc 'Clear processing time logs'
     task :clear => :environment do
-      Photo.all.map &:clear!
+      Photo.all.map &:clear_processing_time!
     end
     
-    desc 'Process any photos modified since last run'
-    task :pending => :environment do
+    task :show => :environment do
+      times = Photo.where(:processing_time => { :$ne => nil })
+
+      if times.count.zero?
+        puts "Benchmarks: No times available"
+      else
+        avg   = times.sum(&:processing_time) / times.count
+        avg_s = sprintf('%.2f', avg) + ' sec'
+        avg_h = 'AVG'.center(avg_s.length)
+        
+        pwh_s = (3600/avg).to_i.to_s
+        pwh_h = 'PWH'.center(pwh_s.length)
+        
+        max   = (3600*50/avg).to_i.to_s.ljust(8)
+        
+        puts " #{ '_' * (avg_h.length + pwh_h.length + 30) } "
+        puts "| #{avg_h} | #{pwh_h} | MAX/HOUR | SAMPLE SIZE |"
+        puts "| #{avg_s} | #{pwh_s} | #{max} | #{times.count.to_s.ljust(11)} |"
+        puts " #{ '_' * (avg_h.length + pwh_h.length + 30) } "
+        end
+    end
+  end
+
+  namespace :process do
+    [:preview, :showcase].each do |processor|
+      desc "Re-render all #{processor.to_s.pluralize}"
+      task processor => :environment do
+        Photo.all.each do |photo|
+          Resque.enqueue "Processors::#{processor.classify}".constantize, photo.key
+        end
+      end
+    end
+  end
+
+  namespace :queue do
+    desc 'Re-process all photos'
+    task :rerun => :environment do
+      puts "Re-processing #{Photo.count} photos..."
+      Photo.all.each do |photo|
+        Resque.enqueue Original, photo.key
+      end
+      puts "#{Photo.count} photos queued."
+    end
+    
+    task :originals => :environment do
       Photographer.all.each do |photographer|
         Resque.enqueue Original::Pending, :prefix => photographer.prefix
       end
     end
-    
-    desc 'Process all photos currently in database'
-    task :reprocess => :environment do
-      puts "Re-processing #{Photo.count} photos"
-      Photo.all.each do |photo|
-        Resque.enqueue Original, photo.key
-      end
-    end
-    
-    desc 'Process all photos'
-    task :all => [:clear, :pending]
   end
   
-  task :process => 'process:pending'
+  desc 'Queue new and modified photos'
+  task :queue => 'queue:originals'
+  
+  namespace :reports do
+    desc 'Show all photos'
+    task :all => :environment do
+      Original::Report.run
+    end
+    
+    desc 'Show pending photos'
+    task :pending => :environment do
+      Original::PendingReport.run
+    end
+  end
+  
+  task :status => 'benchmark:show' do
+    puts 
+    puts "Bucket: " + Original::Bucket.find(:max_keys => 0).name
+    puts "First:  " + Original.first.key
+  end
   
   desc 'Enqueue first photo'
   task :test => :environment do
@@ -63,4 +83,7 @@ namespace :photos do
   end
 end
 
-task :cron => 'photos:process'
+desc 'Show photo status information'
+task :photos => 'photos:status'
+
+task :cron => 'photos:queue'
