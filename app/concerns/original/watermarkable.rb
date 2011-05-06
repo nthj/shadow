@@ -1,7 +1,8 @@
 class Original
   module Watermarkable
     def watermark
-      @filters << lambda { |image|
+      @filters << lambda { |key, image|
+        log "Watermarking", key
         image.composite!(
           ::Magick::Image.read(Rails.root.join('config', 'watermark.png')).first, 
           ::Magick::CenterGravity, 

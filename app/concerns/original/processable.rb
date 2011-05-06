@@ -3,7 +3,7 @@ class Original
     include Resque::Plugins::HerokuAutoscaler
 
     def after_perform_publish_photo key
-      puts "Publishing... ".ljust(justifiable + 10) + key
+      log "Publishing", key
       Photo.find_by_key(key).publish!
     end
   
@@ -20,7 +20,7 @@ class Original
       begin
         yield
       rescue AWS::S3::NoSuchKey, MongoMapper::DocumentNotFound => e
-        puts "[ERROR] Key not found while processing #{key}"
+        log "[ERROR] Key not found", key
       end
     end
     
@@ -32,7 +32,7 @@ class Original
     end
   
     def before_perform_log_job key
-      puts "Processing... ".ljust(justifiable + 10) + key
+      log "Processing", key
     end
     
     def justifiable
@@ -44,21 +44,20 @@ class Original
       return if o.processed? unless o.image?
       
       processors.each do |processor|
-        puts "Applying #{(processor.name.demodulize + '...').ljust(justifiable)} #{key}"
+        log "Applying #{(processor.name.demodulize)}", key
         begin
           processor.perform key
         rescue Exception => e
-          puts "[ERROR] #{processor.name.demodulize} failed to apply (#{e.class.name})"
+          log "#{processor.name.demodulize} FAILED (#{e.class.name})", key
           raise e
         end
       end
     end    
   
-    protected
-      def processors
-        Dir[Rails.root.join('app', 'concerns', 'processors', '*.rb')].map do |f| 
-          "Processors::#{File.basename(f, '.rb').classify}".constantize
-        end
+    def processors
+      Dir[Rails.root.join('app', 'concerns', 'processors', '*.rb')].map do |f| 
+        "Processors::#{File.basename(f, '.rb').classify}".constantize
       end
+    end
   end
 end
