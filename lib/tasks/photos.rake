@@ -24,6 +24,7 @@ namespace :photos do
         puts "| #{avg_h} | #{pwh_h} | MAX/HOUR | SAMPLE SIZE |"
         puts "| #{avg_s} | #{pwh_s} | #{max} | #{times.count.to_s.ljust(11)} |"
         puts " #{ '_' * (avg_h.length + pwh_h.length + 30) } "
+        puts 
         end
     end
   end
@@ -72,7 +73,6 @@ namespace :photos do
   end
   
   task :status => 'benchmark:show' do
-    puts 
     puts "Bucket: " + Original::Bucket.find(:max_keys => 0).name
     puts "First:  " + Original.first.key
   end

@@ -16,7 +16,6 @@ Resque::Plugins::HerokuAutoscaler.config do |c|
       50
     else
       (pending/2).ceil.to_i
-      
     end
   end
 end

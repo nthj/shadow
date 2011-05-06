@@ -7,6 +7,15 @@ class Original
       Photo.find_by_key(key).publish!
     end
   
+    def around_perform_clean_up_temporary_file key
+      begin
+        yield
+      rescue
+        Original.find(key).clean!
+        raise
+      end
+    end  
+  
     def around_perform_handle_deletions key
       begin
         yield
