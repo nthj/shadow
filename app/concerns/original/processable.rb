@@ -21,6 +21,8 @@ class Original
         yield
       rescue AWS::S3::NoSuchKey, MongoMapper::DocumentNotFound => e
         notify "[ERROR] Key not found", key
+      rescue Errno::EPIPE => e
+        puts "[ERROR] Check S3 destination (#{Asset.current_bucket}) exists and is writable"
       end
     end
     
