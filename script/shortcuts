@@ -16,8 +16,8 @@ case $1 in
 	'processing' )
 		heroku logs --tail --app shadow -p worker;;
 	'production' ) 
-		git remote rm heroku
-		git remote add heroku "git@heroku.me:shadow.git";;
+		git config --unset-all heroku.remote
+		git config --add heroku.remote production;;
 	'rake' ) 
 		rake $2;;
   's' )
@@ -25,8 +25,8 @@ case $1 in
 	'setup' )
 		cp config/env ~/.dotfiles/site-env;;
 	'staging' )
-		git remote rm heroku
-		git remote add heroku "git@heroku.me:shadow-staging.git";;
+		git config --unset-all heroku.remote
+		git config --add heroku.remote staging;;
   'styled' )
 		export STYLESHEET_DEVELOPMENT=true
 		bundle exec unicorn;;	
