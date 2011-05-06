@@ -5,6 +5,7 @@ class Original
     def clean!
       File.delete original_filename rescue nil
       File.delete filename rescue nil
+      self
     end
 
     protected

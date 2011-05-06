@@ -13,7 +13,7 @@ module AWS
                 attr_reader :object
                 
                 def all options = { }
-                  log "Queueing 1,000/call", options[:marker]
+                  notify "Queueing 1,000/call", options[:marker]
                   bucket = find(current_bucket, options)
                   if bucket.truncated?
                     bucket.objects + all(options.merge!(:marker => bucket.objects.last.key)) # recursion ftw
@@ -43,7 +43,7 @@ module AWS
         def find key
           # strip non-utf8 characters
           key    = key.remove_extended unless key.valid_utf8?
-          bucket = self::ObjectBucket.find(:marker => key.previous, :max_keys => 1)
+          bucket = self::Bucket.find(:marker => key.previous, :max_keys => 1)
           if (object = bucket.objects.first) && object.key == key
             object 
           else 
@@ -52,12 +52,12 @@ module AWS
         end
 
         def first
-          self::ObjectBucket.find(:max_keys => 1).first
+          self::Bucket.find(:max_keys => 1).first
         end
       
         alias set_current_bucket_to_without_object_bucket set_current_bucket_to
         def set_current_bucket_to bucket
-          self.const_set 'ObjectBucket', BucketFactory.make(self, bucket)
+          self.const_set 'Bucket', BucketFactory.make(self, bucket)
           set_current_bucket_to_without_object_bucket(bucket)
         end
       end

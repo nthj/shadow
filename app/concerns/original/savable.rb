@@ -11,17 +11,15 @@ class Original
       quality = self.quality
       
       stream_to_temporary_file
-
-      @image = ::Magick::Image.read(filename).first
-      @image.strip! # goodbye EXIF
-      @image.send method, @width, @height
+      
+      image.strip! # goodbye EXIF
+      image.send method, @width, @height
       
       filters.each do |filter|
-        filter.call key, @image
+        filter.call key, image
       end
       
-      @image.write(filename) { |image| self.quality = quality unless quality.zero? }
-      @image.destroy!
+      image.write(filename) { |image| self.quality = quality unless quality.zero? }
       
       notify "Saving #{as}", key
       Asset.store key.send(as), open(filename), :access => :public_read

@@ -7,11 +7,12 @@ class Original
       Photo.find_by_key(key).publish!
     end
   
-    def around_perform_clean_up_temporary_file key
+    def around_perform_clean_up key
       begin
         yield
       rescue
-        Original.find(key).clean!
+        Original.find(key).clean!.destroy!
+        
         raise
       end
     end  
@@ -35,10 +36,6 @@ class Original
   
     def before_perform_log_job key
       notify "Processing", key
-    end
-    
-    def justifiable
-      processors.map(&:name).sort_by(&:length).first.length
     end
   
     def perform key

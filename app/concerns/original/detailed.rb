@@ -20,6 +20,7 @@ class Original
 
     def destroy!
       @image.destroy! if @image
+      self
     end
 
     def dimensions

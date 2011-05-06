@@ -36,6 +36,10 @@ class Photo
   end
   alias :== :eql?
   
+  def original
+    Original.find key
+  end
+  
   def publish!
     self.published_at = Time.now
     save

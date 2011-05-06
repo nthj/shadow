@@ -26,7 +26,7 @@ class Original < AWS::S3::S3Object
   end
   
   def photo
-    Photo.find_or_create_by_key(key)
+    Photo.find_or_create_by_key key
   end
   
   def processed?
