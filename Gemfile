@@ -10,6 +10,7 @@ gem 'mongo_mapper',                             :git => 'git://github.com/jnunem
 gem 'pixel',                                    :git => 'git://github.com/nthj/pixel.git'
 gem 'rails',                '~> 3'
 gem 'railings',             '>= 0.0.4'
+gem 'resque',               '>= 1.15'
 gem 'resque-heroku-autoscaler'
 gem 'rmagick',                                  :require => 'RMagick'
 gem 'sprockets'
@@ -28,6 +29,5 @@ group :test do
   gem 'autotest-fsevent'
   gem 'autotest-growl'
   gem 'autotest'
-  gem 'pathy'
   gem 'rspec-rails',        '>= 2.0.0.beta.20'
 end
