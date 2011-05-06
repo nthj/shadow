@@ -3,7 +3,7 @@ class Original
     include Resque::Plugins::HerokuAutoscaler
 
     def after_perform_publish_photo key
-      log "Publishing", key
+      notify "Publishing", key
       Photo.find_by_key(key).publish!
     end
   
@@ -20,7 +20,7 @@ class Original
       begin
         yield
       rescue AWS::S3::NoSuchKey, MongoMapper::DocumentNotFound => e
-        log "[ERROR] Key not found", key
+        notify "[ERROR] Key not found", key
       end
     end
     
@@ -32,7 +32,7 @@ class Original
     end
   
     def before_perform_log_job key
-      log "Processing", key
+      notify "Processing", key
     end
     
     def justifiable
@@ -44,11 +44,11 @@ class Original
       return if o.processed? unless o.image?
       
       processors.each do |processor|
-        log "Applying #{(processor.name.demodulize)}", key
+        notify "Applying #{(processor.name.demodulize)}", key
         begin
           processor.perform key
         rescue Exception => e
-          log "#{processor.name.demodulize} FAILED (#{e.class.name})", key
+          notify "#{processor.name.demodulize} FAILED (#{e.class.name})", key
           raise e
         end
       end

@@ -3,7 +3,7 @@ class Object
   
   cattr_writer :justifiable_message_length
   
-  def log msg, target
+  def notify msg, target
     puts (msg + '...').ljust(@@justifiable_message_length) + target.to_s
   end
 end

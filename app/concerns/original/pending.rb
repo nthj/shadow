@@ -7,7 +7,7 @@ class Original
     class << self
       def perform options = { }
         Original::Bucket.all(options).each do |original|
-          log "Enqueueing", original.key
+          notify "Enqueueing", original.key
           Resque.enqueue Original, original.key
         end
       end
