@@ -8,9 +8,9 @@ Resque::Plugins::HerokuAutoscaler.config do |c|
   c.scaling_disabled = Rails.env.development?
   
   c.new_worker_count do |pending|
-    return 0 if pending.zero?
-    return 1 if pending < 5
-    return 50 if pending > 50
+    break 0 if pending.zero?
+    break 1 if pending < 3
+    break 50 if pending > 50
     (pending/2).ceil.to_i
   end
 end
