@@ -13,6 +13,10 @@ class Original < AWS::S3::S3Object
   
   @queue = 'processor'
   
+  def etag
+    about['etag']
+  end
+  
   def key
     Key.new super
   end
@@ -21,7 +25,11 @@ class Original < AWS::S3::S3Object
     key.image? && about['content-length'].to_i > 0
   end
   
+  def photo
+    Photo.find_or_create_by_key(key)
+  end
+  
   def processed?
-    Time.parse(last_modified) <= Photo.last_processing_run
+    photo == self
   end
 end

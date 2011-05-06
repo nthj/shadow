@@ -30,15 +30,11 @@ class Photo
   scope :by_tag,    ->(tag)     { tag.blank? ? query : where(:tags => tag)  }
   scope :random,    ->          { skip(rand(count)) }
   
-  class << self
-    def last_processing_run
-      if Photo.count.zero?
-        Time.at(0)
-      else
-        Photo.sort(:last_modified.desc).first.last_modified || Time.at(0)
-      end
-    end
+  def eql? object
+    return true if object.responds_to?(:etag) && object.etag == etag
+    super
   end
+  alias :== :eql?
   
   def publish!
     self.published_at = Time.now
