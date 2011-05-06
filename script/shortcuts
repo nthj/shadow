@@ -24,6 +24,8 @@ case $1 in
 		bundle exec unicorn;;
 	'setup' )
 		cp config/env ~/.dotfiles/site-env;;
+	'stage' ) 
+		git checkout staging && git merge development && git push && git checkout development;;
 	'staging' )
 		git config --unset-all heroku.remote
 		git config --add heroku.remote staging;;
