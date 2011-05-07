@@ -13,6 +13,7 @@ module Processors
           photo.photographer    = original.photographer
           photo.point           = original.point
           photo.tags            = original.tags
+          photo.title           = original.title
           photo.save
         end
       end

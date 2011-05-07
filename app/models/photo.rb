@@ -12,6 +12,7 @@ class Photo
   key :published_at,    Time
   key :rating,          Rating
   key :tags,            Set,          :typecast => 'Tag'
+  key :title,           String
   key :views,           Integer,      :default => 0
   
   timestamps!
