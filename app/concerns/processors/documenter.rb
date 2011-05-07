@@ -4,7 +4,8 @@ module Processors
     
     class << self
       def perform key
-        Original.find(key).photo.tap do |photo|
+        original = Original.find key
+        original.photo.tap do |photo|
           photo.description     = original.description
           photo.dimensions      = original.dimensions
           photo.etag            = original.etag

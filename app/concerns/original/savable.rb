@@ -13,7 +13,7 @@ class Original
       stream_to_temporary_file
       
       image.strip! # goodbye EXIF
-      image.send method, @width, @height
+      image.send method, @width, @height unless Rails.env.development?
       
       filters.each do |filter|
         filter.call key, image

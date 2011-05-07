@@ -7,7 +7,7 @@ class Original
           ::Magick::Image.read(Rails.root.join('config', 'watermark.png')).first, 
           ::Magick::CenterGravity, 
           ::Magick::OverCompositeOp
-        )
+        ) unless Rails.env.development?
       }
 
       self
