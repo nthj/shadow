@@ -32,7 +32,7 @@ class Photo
   scope :random,    ->          { skip(rand(count)) }
   
   def eql? object
-    return true if object.responds_to?(:etag) && object.etag == etag
+    return true if object.respond_to?(:etag) && object.etag == etag
     super
   end
   alias :== :eql?

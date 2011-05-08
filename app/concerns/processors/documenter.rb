@@ -16,7 +16,7 @@ module Processors
           photo.tags            = original.tags
           photo.title           = original.title
           photo.save
-        end
+        end unless original.photo == original
       end
     end
   end
