@@ -1,6 +1,8 @@
 class Photo
   include MongoMapper::Document
   include Plugins::Benchmarkable
+  include Plugins::Couriable
+  include Plugins::Fusionable
   
   key :description,     String
   key :dimensions,      Dimensions

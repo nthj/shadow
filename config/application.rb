@@ -10,10 +10,10 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Shadow
   class Application < Rails::Application
-    config.encoding           = 'utf-8'
-    config.filter_parameters += [:password]
-    config.i18n.load_path    += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.time_zone          = 'UTC'
+    config.encoding                 = 'utf-8'
+    config.filter_parameters       += [:password]
+    config.i18n.load_path          += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.time_zone                = 'UTC'
     config.generators do |g|
       g.integration_tool :rspec
       g.template_engine :haml

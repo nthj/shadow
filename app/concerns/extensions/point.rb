@@ -1,4 +1,3 @@
-
 class Point
   class << self     
     def from_a value
@@ -49,6 +48,12 @@ class Point
       :latitude   => latitude,
       :longitude  => longitude
     }
+  end
+  
+  def to_kml
+    "<Point>
+      <coordinates>#{latitude},#{longitude},0.0</coordinates>
+    </Point>"    
   end
   
   def to_s

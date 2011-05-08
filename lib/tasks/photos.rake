@@ -38,6 +38,11 @@ namespace :photos do
         end
       end
     end
+    
+    desc 'Re-send data to receivers'
+    task :send => :environment do
+      Photo.all.map &:save
+    end
   end
 
   namespace :queue do
