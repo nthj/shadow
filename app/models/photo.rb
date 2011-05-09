@@ -47,4 +47,8 @@ class Photo
     self.published_at = Time.now
     save
   end
+  
+  def title
+    super || key.titleize
+  end
 end
