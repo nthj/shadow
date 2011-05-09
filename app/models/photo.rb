@@ -40,6 +40,10 @@ class Photo
   end
   alias :== :eql?
   
+  def key
+    Key.from_mongo super # mongo_mapper key type is misbehaving
+  end
+  
   def original
     Original.find key
   end
