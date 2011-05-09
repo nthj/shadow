@@ -14,8 +14,9 @@ module Couriers
       end
 
       def client
-        client = GData::Client::FusionTables.new      
-        client.clientlogin self.username, self.password
+        GData::Client::FusionTables.new.tap do |c|
+          c.clientlogin self.username, self.password
+        end
       end
       memoize :client
     
