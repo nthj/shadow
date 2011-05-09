@@ -9,6 +9,8 @@ source config/env
 case $1 in
 	'' )
 		;;
+	'amend' )
+		git commit -a --amend && git checkout staging && git merge development && git push -f && git checkout development;;
 	'deploy' )
 		git checkout master && git merge staging && git push && git checkout development;;
 	'logs' )
