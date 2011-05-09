@@ -30,7 +30,7 @@ module Couriers
       def perform id
         photo = Photo.find id
         
-        table.select("ROWID", "WHERE name='#{photo.key}'").map { |id| table.delete id }
+        table.select("ROWID", "WHERE name='#{photo.key}'").map(&:values).map(&:first).map { |id| table.delete id }
         table.insert [photo.to_fusion]
       end
     end

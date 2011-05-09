@@ -51,9 +51,7 @@ class Point
   end
   
   def to_kml
-    "<Point>
-      <coordinates>#{latitude},#{longitude},0.0</coordinates>
-    </Point>"    
+    "<Point><coordinates>#{longitude},#{latitude},0.0</coordinates></Point>"    
   end
   
   def to_s
