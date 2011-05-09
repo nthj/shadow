@@ -7,6 +7,7 @@ class Photo
   key :description,     String
   key :dimensions,      Dimensions
   key :etag,            String
+  key :key,             Key
   key :last_modified,   Time
   key :orientation,     Orientation
   key :photographed_at, Time
