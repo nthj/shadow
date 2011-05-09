@@ -1,7 +1,7 @@
 module Plugins
   module Fusionable
     def to_fusion
-      { 'description'     => description, 
+      { 'description'     => description.to_s, 
         'geometry'        => point.to_kml,
         'name'            => key,
         'preview'         => Key.new(key).medium,
