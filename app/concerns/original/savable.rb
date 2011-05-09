@@ -9,11 +9,10 @@ class Original
     
     def save as = :default
       quality = self.quality
-      
-      stream_to_temporary_file
-      
+            
       image.strip! # goodbye EXIF
-      image.send method, @width, @height unless Rails.env.development?
+      
+      image.send method, @width, @height
       
       filters.each do |filter|
         filter.call key, image

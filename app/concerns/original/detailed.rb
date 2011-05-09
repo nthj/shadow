@@ -81,19 +81,23 @@ class Original
 
     protected
       def exif key
-        v = image.get_exif_by_entry(key).first.last
+        v = meta.get_exif_by_entry(key).first.last
         v.respond_to?(:toutf8) ? v.toutf8 : v
       end
 
       def image
         stream_to_temporary_file
-        ::Magick::Image.ping(filename).first
+        @image ||= ::Magick::Image.read(filename).first
       end
-      memoize :image
 
       def iptc key
-        v = image.get_iptc_dataset("::Magick::IPTC::Application::#{key.humanize}".constantize)
+        v = meta.get_iptc_dataset("::Magick::IPTC::Application::#{key.humanize}".constantize)
         v.respond_to?(:toutf8) ? v.toutf8 : v
+      end
+      
+      def meta
+        stream_to_temporary_file
+        @image ||= ::Magick::Image.ping(filename).first
       end
   end
 end
