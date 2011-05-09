@@ -31,7 +31,7 @@ module Couriers
         photo = Photo.find id
         
         table.select("ROWID", "WHERE name='#{photo.key}'").map { |id| table.delete id }
-        table.insert [photo.to_kml]
+        table.insert [photo.to_fusion]
       end
     end
   end
