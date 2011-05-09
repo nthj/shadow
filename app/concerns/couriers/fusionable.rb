@@ -1,6 +1,8 @@
 module Couriers
   class Fusionable
     class InvalidFusionTableError < Exception; end 
+  
+    extend Resque::Plugins::HerokuAutoscaler
     
     @queue = 'couriers'
     
