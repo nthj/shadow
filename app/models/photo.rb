@@ -7,6 +7,7 @@ class Photo
   key :description,     String
   key :dimensions,      Dimensions
   key :etag,            String
+  key :key,             Key
   key :last_modified,   Time
   key :orientation,     Orientation
   key :photographed_at, Time
@@ -38,6 +39,10 @@ class Photo
     super
   end
   alias :== :eql?
+  
+  def key
+    Key.from_mongo super # mongo_mapper key type is misbehaving
+  end
   
   def original
     Original.find key
