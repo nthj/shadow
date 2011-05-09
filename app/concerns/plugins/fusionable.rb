@@ -7,7 +7,7 @@ module Plugins
         'preview'         => Key.new(key).medium,
         'preview_height'  => dimensions.calculate(Processors::Previewer.width.pixels.wide).height,
         'preview_width'   => Processors::Previewer.width,
-        'title'           => title }
+        'title'           => title }.filter &:to_s
     end
   end
 end
