@@ -54,6 +54,6 @@ class Photo
   end
   
   def title
-    super || key.titleize
+    super || key.to_s.titleize
   end
 end

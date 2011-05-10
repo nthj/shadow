@@ -8,7 +8,7 @@ module Plugins
     
     def carry
       couriers.each do |courier|
-        Resque.enqueue courier, id
+        courier.execute id
       end if couriable?
     end
 
