@@ -21,17 +21,24 @@ module Couriers
         end
       end
       memoize :client
+      
+      def execute id
+        Resque.redis.rpush 'fusionable', id
+      end
     
       def table
         client.show_tables.select { |t| t.id == self.table_id }.first or raise InvalidFusionTableError
       end
       memoize :table
       
-      def perform id
-        photo = Photo.find id
+      def perform
+        while id = Resque.redis.lpop('fusionable')
+          photo = Photo.find id
         
-        table.select("ROWID", "WHERE name='#{photo.key}'").map(&:values).map(&:first).map { |id| table.delete id }
-        table.insert [photo.to_fusion]
+          table.select("ROWID", "WHERE name='#{photo.key}'").map(&:values).map(&:first).map { |id| table.delete id }
+          table.insert [photo.to_fusion]
+          sleep 1
+        end
       end
     end
   end

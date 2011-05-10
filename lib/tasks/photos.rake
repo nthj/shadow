@@ -28,6 +28,11 @@ namespace :photos do
         end
     end
   end
+  
+  desc 'Map all photos onto Fusion'
+  task :cartographer => :environment do
+    Resque.enqueue Couriers::Fusionable
+  end
 
   namespace :process do
     [:preview, :showcase].each do |processor|
@@ -91,4 +96,4 @@ end
 desc 'Show photo status information'
 task :photos => 'photos:status'
 
-task :cron => 'photos:queue'
+task :cron => ['photos:queue', 'photos:cartographer']
