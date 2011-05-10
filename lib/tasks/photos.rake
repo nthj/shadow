@@ -39,7 +39,7 @@ namespace :photos do
       desc "Re-render all #{processor.to_s.pluralize}"
       task processor => :environment do
         Photo.all.each do |photo|
-          Resque.enqueue "Processors::#{processor.classify}".constantize, photo.key
+          Resque.enqueue "Processors::#{processor.to_s.classify}".constantize, photo.key
         end
       end
     end
