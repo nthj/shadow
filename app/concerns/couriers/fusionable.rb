@@ -11,10 +11,6 @@ module Couriers
 
       attr_accessor :username, :password, :table_id
       
-      def before_perform_log_job id
-        notify "Sending to Fusion Tables", Photo.find(id).key
-      end
-
       def client
         GData::Client::FusionTables.new.tap do |c|
           c.clientlogin self.username, self.password
@@ -23,6 +19,7 @@ module Couriers
       memoize :client
       
       def execute id
+        notify "Adding to Fusionable queue", Photo.find(id).key
         Resque.redis.rpush 'fusionable', id
       end
     
