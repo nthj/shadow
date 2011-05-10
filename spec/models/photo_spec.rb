@@ -10,7 +10,7 @@ describe Photo do
   end
   
   it "should only carry a save one time in 3 seconds" do
-    Resque.should_receive(:enqueue).once
+    Resque.redis.should_receive(:rpush).once
     p = Photo.new :etag => 'dc629038ffc674bee6f62eb64ff3a'
     2.times { p.save }
   end
