@@ -18,8 +18,10 @@ module Couriers
       def perform id
         Net::HTTP.post_form(
           URI.parse(destination), 
-          { 'key'       => key, 
-            'filename'  => Photo.find(id).key }
+          { 'key'         => key, 
+            'filename'    => Photo.find(id).key,
+            'description' => Photo.find(id).description,
+            'title'       => Photo.find(id).title }
         )
       end
     end
