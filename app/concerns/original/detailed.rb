@@ -24,7 +24,7 @@ class Original
     end
 
     def dimensions
-      Dimensions.new exif('ExifImageLength'), exif('ExifImageWidth')
+      Dimensions.new meta.rows, meta.columns
     end
 
     def headline
