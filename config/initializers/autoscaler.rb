@@ -1,6 +1,20 @@
 require 'heroku'
 require 'resque/plugins/resque_heroku_autoscaler'
 
+module Resque::Plugins::HerokuAutoscaler
+  alias set_workers_without_cache set_workers
+  def set_workers number_of_workers
+    Rails.cache.set('heroku.worker.count', set_workers_without_cache(number_of_workers), :expires_in => 1.minute)
+  end
+  
+  alias current_workers_without_cache current_workers
+  def current_workers
+    Rails.cache.fetch('heroku.worker.count', :expires_in => 1.minute) do
+      current_workers_without_cache
+    end
+  end
+end
+
 Resque::Plugins::HerokuAutoscaler.config do |c|
   c.heroku_user = ''
   c.heroku_pass = ENV['HEROKU_API_KEY'].to_s.split('@').last
