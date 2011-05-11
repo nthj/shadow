@@ -35,7 +35,6 @@ module Couriers
         
           table.select("ROWID", "WHERE name='#{photo.key}'").map(&:values).map(&:first).map { |id| table.delete id }
           table.insert [photo.to_fusion]
-          sleep 1
         end
       end
     end
