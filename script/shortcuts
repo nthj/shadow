@@ -29,7 +29,7 @@ case $1 in
 	'setup' )
 		cp config/env ~/.dotfiles/site-env;;
 	'shutdown' )
-		heroku accounts:set mike && heroku workers 0 --remote development && heroku workers 0 --remote production && heroku accounts:set me;;
+		heroku accounts:set mike && heroku workers 0 --remote staging && heroku workers 0 --remote production && heroku accounts:set me;;
 	'stage' ) 
 		git checkout staging && git merge development && git push && git checkout development;;
 	'staging' )
