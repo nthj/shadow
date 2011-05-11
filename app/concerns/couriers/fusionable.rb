@@ -24,6 +24,7 @@ module Couriers
       end
     
       def table
+        puts "Selecting Fusion Table (#{self.table_id})"
         client.show_tables.select { |t| t.id == self.table_id }.first or raise InvalidFusionTableError
       end
       memoize :table
