@@ -87,6 +87,7 @@ namespace :photos do
   task :status => 'benchmark:show' do
     puts "Bucket: " + Original::Bucket.find(:max_keys => 0).name
     puts "First:  " + Original.first.key
+    puts "Fusion: " + Resque.redis.lrange('fusionable', 0, -1).size
   end
   
   desc 'Enqueue first photo'
