@@ -35,11 +35,13 @@ namespace :photos do
   end
 
   namespace :process do
-    [:preview, :showcase].each do |processor|
+    [:preview, :showcaser].each do |processor|
       desc "Re-render all #{processor.to_s.pluralize}"
       task processor => :environment do
-        Photo.all.each do |photo|
-          Resque.enqueue "Processors::#{processor.to_s.classify}".constantize, photo.key
+        (Photo.count / 100).times do |i|
+          Photo.skip(i * 100).limit(100).each do |photo|
+            Resque.enqueue "Processors::#{processor.to_s.classify}".constantize, photo.key
+          end
         end
       end
     end
