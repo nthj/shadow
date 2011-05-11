@@ -30,7 +30,7 @@ class Dimensions
   end
 
   def calculate unit
-    height, width = unit.calculate(self)
+    height, width = unit.calculate(self) rescue nil
     self.class.new height, width
   end
   
