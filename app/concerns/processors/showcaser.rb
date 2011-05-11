@@ -8,6 +8,8 @@ module Processors
   class Showcaser
     extend Resque::Plugins::HerokuAutoscaler
     
+    @queue = 'processors'
+    
     class << self
       def perform key
         Original.find(key).compress(100).resize(2500, 1667).to(:fit).watermark.save
