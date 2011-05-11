@@ -32,7 +32,8 @@ module Couriers
       def perform
         while id = Resque.redis.lpop('fusionable')
           photo = Photo.find id
-        
+          
+          notify "Adding to Fusion Tables", photo.key
           table.select("ROWID", "WHERE name='#{photo.key}'").map(&:values).map(&:first).map { |id| table.delete id }
           table.insert [photo.to_fusion]
         end
