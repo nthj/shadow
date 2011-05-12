@@ -37,6 +37,7 @@ module Couriers
             notify "Adding to Fusion Tables", photo.key
             table.select("ROWID", "WHERE name='#{photo.key}'").map(&:values).map(&:first).map { |id| table.delete id }
             table.insert [photo.to_fusion]
+            sleep 0.6 # 5 queries per second
           rescue => e
             notify "Fusion Tables failed", id
           end
