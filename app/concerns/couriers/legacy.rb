@@ -16,12 +16,14 @@ module Couriers
       end
 
       def perform id
+        p = Photo.fields(:description, :filename, :title).find id
+        
         Net::HTTP.post_form(
           URI.parse(destination), 
           { 'key'         => key, 
-            'filename'    => Photo.find(id).key,
-            'description' => Photo.find(id).description,
-            'title'       => Photo.find(id).title }
+            'filename'    => p.key,
+            'description' => p.description,
+            'title'       => p.title }
         )
       end
     end
