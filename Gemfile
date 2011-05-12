@@ -11,8 +11,7 @@ gem 'mongo_mapper',                             :git => 'git://github.com/jnunem
 gem 'pixel',                                    :git => 'git://github.com/nthj/pixel.git'
 gem 'rails',                '~> 3'
 gem 'railings',             '>= 0.0.4'
-gem 'resque',               '>= 1.15'
-gem 'resque-heroku-autoscaler'
+gem 'resque-heroku-autoscaler',                 :git => 'git://github.com/nthj/resque-heroku-autoscaler.git'
 gem 'rmagick',                                  :require => 'RMagick'
 gem 'sprockets'
 

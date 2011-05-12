@@ -14,7 +14,7 @@ module Plugins
 
     protected
       def couriable?
-        !self.carried_at? || self.carried_at < 3.seconds.ago
+        !self.carried_at? || self.carried_at < 10.seconds.ago
       end
       
       def couriers
