@@ -25,9 +25,8 @@ module Couriers
     
       def table
         puts "Selecting Fusion Table (#{self.table_id})"
-        client.show_tables.select { |t| t.id == self.table_id }.first or raise InvalidFusionTableError
+        @@table ||= client.show_tables.select { |t| t.id == self.table_id }.first or raise InvalidFusionTableError
       end
-      memoize :table
       
       def perform
         while id = Resque.redis.lpop('fusionable')
