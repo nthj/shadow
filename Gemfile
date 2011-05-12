@@ -21,7 +21,7 @@ group :development do
 end
 
 group :production do
-  gem 'dalli'
+  gem 'dalli',                                  :git => 'git://github.com/nthj/dalli.git'
   gem 'jsmin'
 end
 

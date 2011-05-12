@@ -8,6 +8,12 @@ GIT
       plucky (~> 0.3.8)
 
 GIT
+  remote: git://github.com/nthj/dalli.git
+  revision: 6621309fb2ba4a793f31aaa4334f6dbdf688885e
+  specs:
+    dalli (1.0.3)
+
+GIT
   remote: git://github.com/nthj/pixel.git
   revision: 68ca32ffcb9a2bf86e3151f61c5e2282f458f72e
   specs:
@@ -65,7 +71,6 @@ GEM
       fssm (>= 0.2.7)
       sass (~> 3.1)
     configuration (1.2.0)
-    dalli (1.0.3)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -176,7 +181,7 @@ DEPENDENCIES
   aws-s3
   bson_ext
   compass
-  dalli
+  dalli!
   fusion_tables
   geokit
   haml
