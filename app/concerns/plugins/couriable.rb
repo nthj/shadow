@@ -2,7 +2,6 @@ module Plugins
   module Couriable    
     def self.included base
       base.after_save :carry
-      base.key :carried_at, Time
     end
     
     def carry
