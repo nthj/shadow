@@ -9,8 +9,8 @@ describe Photo do
     (Photo.new(:etag => 'non-matching etag') == o).should be_false
   end
   
-  it "should only carry a save one time in 3 seconds" do
-    Resque.redis.should_receive(:rpush).once
+  it "should only carry a save once in a 10 second period" do
+    Couriers::Fusionable.should_receive(:execute).once
     p = Photo.new :etag => 'dc629038ffc674bee6f62eb64ff3a'
     2.times { p.save }
   end
