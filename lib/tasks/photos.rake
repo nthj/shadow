@@ -48,7 +48,7 @@ namespace :photos do
     
     desc 'Re-send data to receivers'
     task :send => :environment do
-      Photo.all.map &:save
+      Photo.fields(:id).all.map &:carry
     end
   end
 
