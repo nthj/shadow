@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/nthj/dalli.git
-  revision: 6621309fb2ba4a793f31aaa4334f6dbdf688885e
+  revision: 1cdc9c1c770ac3a6f57e3bb4112c088161600c48
   specs:
     dalli (1.0.3)
 
@@ -21,7 +21,7 @@ GIT
 
 GIT
   remote: git://github.com/nthj/resque-heroku-autoscaler.git
-  revision: 6b1d42f5f7c31298216b418382023a84ed9039eb
+  revision: 9fef6164787cf4d7fa3c36a2119a3c76195ab086
   specs:
     resque-heroku-autoscaler (0.2.3)
       heroku
