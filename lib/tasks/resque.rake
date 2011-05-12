@@ -5,7 +5,7 @@ task "resque:setup" => :environment do
 end
 
 task "resque:cleanup" => :environment do
-  Resque.workers.map &:done_working
+  Resque.redis.smembers(:workers).count.times { Resque.redis.spop(:workers) }
 end
 
 desc "Alias for resque:work (To run workers on Heroku)"
