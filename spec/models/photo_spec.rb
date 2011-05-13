@@ -9,12 +9,6 @@ describe Photo do
     (Photo.new(:etag => 'non-matching etag') == o).should be_false
   end
   
-  it "should only carry a save once in a 10 second period" do
-    Couriers::Fusionable.should_receive(:execute).once
-    p = Photo.new :etag => 'dc629038ffc674bee6f62eb64ff3a'
-    2.times { p.save }
-  end
-  
   it "should have an accurate preview height" do
     photos = {
       '270' => Photo.new(:dimensions => Dimensions.new(1000, 1000), :key => ''), 
