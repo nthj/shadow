@@ -1,5 +1,13 @@
 module Plugins
   module Fusionable
+    def self.included base
+      base.key :fusion_row_id, Integer
+    end
+    
+    def fusionable &block
+      yield key
+    end
+    
     def to_fusion
       { 'description'     => description, 
         'geometry'        => point.to_kml,
