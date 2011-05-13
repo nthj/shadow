@@ -39,14 +39,14 @@ module Couriers
               data = data.to_a.map{|x| x.join("=")}.join(", ")
               sql = "UPDATE #{self.table_id} SET #{data} WHERE ROWID = '#{photo.fusion_row_id}'"
               GData::Client::FusionTables::Data.parse(client.sql_post(sql)).body
-              sleep 0.2
+              sleep 0.4
             else
               table.insert [photo.to_fusion] rescue nil
               table.select("ROWID", "WHERE name='#{photo.key}'").map(&:values).map(&:first).map do |id|
                 photo.fusion_row_id = id
                 photo.save
               end
-              sleep 0.4
+              sleep 0.6
             end
           rescue => e
             puts e.message
