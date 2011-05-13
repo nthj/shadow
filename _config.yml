@@ -12,7 +12,7 @@ lsi:         false
 pygments:    true
 markdown:    maruku
 permalink:   /:year/:month/:title
-exclude:     [CNAME, Rakefile, README]
+exclude:     [config.rb, CNAME, Rakefile, README]
 
 maruku:
   use_tex:    false
