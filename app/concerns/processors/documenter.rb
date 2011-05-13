@@ -10,6 +10,7 @@ module Processors
           photo.dimensions      = original.dimensions
           photo.etag            = original.etag
           photo.last_modified   = original.last_modified
+          photo.orientation     = original.orientation
           photo.photographed_at = original.photographed_at
           photo.photographer    = original.photographer
           photo.point           = original.point
