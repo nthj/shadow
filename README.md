@@ -6,6 +6,8 @@ Given an S3 bucket, Shadow processes approximately 11,000 photos an hour:
 * watermarking, and 
 * extracting EXIF data
 
+See it in action at http://maps.abovephotography.com.au - over 30,000 photos processed and counting.
+
 SETUP
 =====
 
