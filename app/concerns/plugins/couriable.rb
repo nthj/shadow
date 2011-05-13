@@ -7,7 +7,7 @@ module Plugins
     def carry
       couriers.each do |courier|
         courier.execute id
-      end
+      end unless fusion_row_id_changed?
     end
 
     protected
