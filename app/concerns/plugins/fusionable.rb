@@ -20,7 +20,7 @@ module Plugins
     
     protected
       def preview_height
-        if orientation.landscape?
+        if dimensions.ratio < 1.2
           dimensions.calculate(Processors::Previewer.width.pixels.wide).height
         else
           Processors::Previewer.height.pixels.high          
@@ -28,7 +28,7 @@ module Plugins
       end
       
       def preview_width
-        if orientation.landscape?
+        if dimensions.ratio < 1.2
           Processors::Previewer.width
         else
           dimensions.calculate(Processors::Previewer.height.pixels.high).height
