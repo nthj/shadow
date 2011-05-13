@@ -1,7 +1,9 @@
 h1
+  :border-bottom dotted #ccc 1px
   :color #777
-  :height 10em
-  :margin 0em auto 0
+  :height 9em
+  :margin 0em auto 1em
+  :position relative
   :line-height 1em
   :width 46em
   
@@ -14,7 +16,7 @@ h1
     :font
       :size 4em
       :weight bold
-    :line-height 2em
+    :line-height 1.7em
     :text-decoration none
     +text-shadow
     :width 9em
@@ -23,15 +25,18 @@ h1
     &:hover
       :color #111
       
-      #header-dot, #header-me
-        :color #5D5F54
-    
-    #header-dot, #header-me
-      :color #959585
-    
-    #header-tagline
-      :display none
-
+  #visit
+    :background #036 url('http://www.abovephotography.com.au/services/images/logo.png') no-repeat 0 5px
+    +border-radius(6px)
+    +box-shadow
+    :display block
+    :height 122px
+    :position absolute
+    :right 0
+    :text-indent -10000px
+    :top 1em
+    :width 339px
+      
 div
   :margin 3em auto
   :width 46em
@@ -39,39 +44,28 @@ div
 p, ul, ol
   :margin-bottom 0.813em
 
-#call-me
-  :color #333
-  :float right
-  :font
-    :size 1.25em
-    :weight bold
-  :text-decoration none
-  +text-shadow
-  :width 7.8em
-
-
-#hire-me
-  :background #8B947C
-  +border-radius(12px)
-  +box-shadow
-  :color white
-  :float right
-  :font
-    :size 1.5em
-    :weight bold
-  :letter-spacing 0.1em
-  :margin
-    :right 0.35em
-    :top -4em
-  :padding 1.15em 1.3em
-  @include background-image(radial-gradient(#c2c5ac,#879179))
-  :text
-    :decoration none
-    :transform uppercase
-  +text-shadow
-
-  &:hover
-    @include background-image(radial-gradient(#c9ceb2,#8b947c))
-
-  &:active
-    @include background-image(radial-gradient(#584a37,#201409))
+ol
+  :margin 0 auto
+  :overflow auto
+  :width 46em
+  
+  li
+    :float left
+    :margin-right 2.7em
+    
+    &#nav-problems
+      :margin-left -0.7em
+    
+    a
+      :display block
+      :padding 0.1em 0.7em
+      :text-align center
+    
+#problems #nav-problems, #process #nav-process, #examples #nav-examples, #code #nav-code
+  a
+    +border-radius(6px)
+    +box-shadow
+    :color white
+    :font-weight bold
+    +linear-gradient(#555, #444)
+    :text-decoration none

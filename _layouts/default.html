@@ -29,58 +29,36 @@
 
 	<body id="{{ page.body_id }}">
 		<h1>
-			<a href="/" id="header">
-				nthj<span id="header-dot">.</span><span id="header-me">me</span>
-				<span id="header-tagline">&mdash; Nathaniel Jones</span>
-			</a>
-			writings
-			<a href="/business">on business</a>, 
-			<a href="/software">on software</a>,
-			<a href="/awesome">on awesome</a>
-			<a href="/hire" id="hire-me">hire me</a>
-			<a href="tel:+15012591726" id="call-me">501.259.1726</a>
+			<a href="./" id="header">Shadow</a> 
+			AWS/S3 Photo Processing for Above Photography
+			
+			<a href="http://abovephotography.com.au" id="visit">Above Photography</a>
 		</h1>
 		
+		<ol>
+			<li id="nav-problems">
+				<a href="problems">The Problem</a>
+			</li>
+			<li id="nav-process">
+				<a href="process">The Process</a>
+			</li>
+			<li id="nav-examples">
+				<a href="examples">Examples</a>
+			</li>
+			<li id="nav-code">
+				<a href="code">Code</a>
+			</li>
+		</ol>
+		
 		<div>
-
-			<h2 id="start">{{ page.title }}</h2>
 		
-			<article>
+			{{ content }}
 		
-				{{ content }}
-			
-				{% unless page.body_id %}
-					<footer>
-						<a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="thenthj">
-							Tweet
-						</a>
-						<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-					
-						&copy; Nathaniel Jones on <time>{{ page.date | date_to_long_string }}</time>
-					</footer>
-				{% endunless %}
-		
-			</article>
-			
 		</div>
 		
-		<aside>
-			<h2>About Nathaniel</h2>
-			
-			<img class="profile" src="https://si2.twimg.com/profile_images/1325577179/gravatar_reasonably_small.jpeg" />
-			
-			<p>
-				Nathaniel Jones is a software consultant with 7
-				 years experience creatively solving businesses&#8217; problems.
-				<a href="/hire">Hire Nathaniel &rarr;</a>
-			</p>
-			
-			<a href="http://www.twitter.com/thenthj"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-c.png" alt="Follow thenthj on Twitter"/></a>
-		
-			<a id="github" href="https://github.com/nthj">
-			  <span>My work on Github</span>
-			  <span>See my code</span>
-			</a>
-		</aside>
+		<a id="github" href="https://github.com/nthj/shadow">
+		  <span>Fork me on Github</span>
+		  <span>See Shadow&#8217;s Code</span>
+		</a>
 	</body>
 </html>

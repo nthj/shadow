@@ -1,0 +1,31 @@
+---
+body_id: code
+layout: default
+title: Shadow &mdash; AWS/S3 Photo Processing for Above Photography
+---
+
+<h3>Specifying thumbnail dimensions</h3>
+
+<p>
+	Above Photography wanted to be able to easily create different-sized thumbnails in the future.
+	A custom language allows us to easily set up new sizes, set options, and specify the name:
+</p>
+
+{% highlight ruby %}
+Original.find(key).compress(70).resize(270, 167).to(:fit).watermark.save(:medium)
+{% endhighlight %}
+
+<h3>Optimizing photo processing speed</h3>
+
+<p>
+	Heroku, our web host, allows us to process up to 50 photos at a time.
+	At first, Shadow took about 30 seconds to process each photo, 
+	but just a few easy changes allowed us to cut this in half &mdash; 
+	we&#8217;re now processing over <strong>11,000 photos per hour</strong>.
+</p>
+
+<h3>Sending to Google Maps</h3>
+
+<p>
+	
+</p>
