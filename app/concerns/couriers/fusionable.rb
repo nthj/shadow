@@ -19,7 +19,6 @@ module Couriers
       memoize :client
       
       def execute id
-        notify "Adding to Fusionable queue", Photo.find(id).key
         Resque.redis.rpush 'fusionable', id
       end
     
