@@ -1,0 +1,77 @@
+h1
+  :color #777
+  :height 10em
+  :margin 0em auto 0
+  :line-height 1em
+  :width 46em
+  
+  a
+    :color #545CA2
+  
+  #header
+    :color #363830
+    :display block
+    :font
+      :size 4em
+      :weight bold
+    :line-height 2em
+    :text-decoration none
+    +text-shadow
+    :width 9em
+    :-webkit-mask-image -webkit-gradient(linear, left top, left bottom, from(rgba(194, 197, 172, 0.8)), color-stop(0.4, rgba(135, 145, 121, 0.8)), to(rgba(0, 0, 0, 1)))
+    
+    &:hover
+      :color #111
+      
+      #header-dot, #header-me
+        :color #5D5F54
+    
+    #header-dot, #header-me
+      :color #959585
+    
+    #header-tagline
+      :display none
+
+div
+  :margin 3em auto
+  :width 46em
+  
+p, ul, ol
+  :margin-bottom 0.813em
+
+#call-me
+  :color #333
+  :float right
+  :font
+    :size 1.25em
+    :weight bold
+  :text-decoration none
+  +text-shadow
+  :width 7.8em
+
+
+#hire-me
+  :background #8B947C
+  +border-radius(12px)
+  +box-shadow
+  :color white
+  :float right
+  :font
+    :size 1.5em
+    :weight bold
+  :letter-spacing 0.1em
+  :margin
+    :right 0.35em
+    :top -4em
+  :padding 1.15em 1.3em
+  @include background-image(radial-gradient(#c2c5ac,#879179))
+  :text
+    :decoration none
+    :transform uppercase
+  +text-shadow
+
+  &:hover
+    @include background-image(radial-gradient(#c9ceb2,#8b947c))
+
+  &:active
+    @include background-image(radial-gradient(#584a37,#201409))

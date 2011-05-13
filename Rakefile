@@ -1,7 +1,31 @@
-# Add your own tasks in files placed in lib/tasks ending in .rake,
-# for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
+desc 'create a new draft post'
+task :post do
+  require 'date'
+  title = ENV['TITLE']
+  slug = "#{Date.today}-#{title.downcase.gsub(/[^\w]+/, '-')}"
 
-require File.expand_path('../config/application', __FILE__)
-require 'rake'
+  file = File.join(
+    File.dirname(__FILE__),
+    '_posts',
+    slug + '.markdown'
+  )
 
-Shadow::Application.load_tasks
+  File.open(file, "w") do |f|
+    f << <<-EOS.gsub(/^    /, '')
+    ---
+    layout: default
+    title: #{title}
+    published: false
+    categories: #{ENV['CATEGORIES']}
+    ---
+
+    EOS
+  end
+
+  system ("#{ENV['EDITOR']} #{file}")
+end
+
+desc 'publish short url' 
+task :publish do
+  system("heroku rake add DESTINATION=#{ENV['DESTINATION']} KEY=#{ENV['KEY']} --app b-nthj")
+end

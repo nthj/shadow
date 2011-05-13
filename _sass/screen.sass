@@ -1,0 +1,38 @@
+@import compass/reset
+@import compass/css3/border-radius
+@import compass/css3/box-shadow
+@import compass/css3/gradient
+@import compass/css3/text-shadow
+@import compass/css3/transform
+@import compass/css3/transition
+@import lib/github
+@import lib/highlight
+@import partials/aside
+@import partials/contact
+@import partials/headings
+@import partials/highlight
+@import partials/layout
+@import partials/post
+@import partials/specific
+
+$default-text-shadow-color : #cbcbcb
+  
+body
+  :background #F0F0F2 url('/texture.png')
+  :color #252525
+  :font 100% "Helvetica Neue", Helvetica, "Lucida Grande", Verdana, Georgia, Sans-serif
+  :line-height 1.625em
+  :min-width 960px
+  :-webkit-font-smoothing antialiased
+  
+a
+  :color #2631A6
+  
+  &:hover
+    :color #333
+    
+  &:active
+    :color #000
+
+b, strong
+  :font-weight bold

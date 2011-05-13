@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{{ page.title }}</title>
+		<link href="/stylesheets/screen.css" rel="stylesheet" type="text/css" />
+	
+	 	<!--[if IE]>
+	 		<link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	 	<![endif]-->
+		
+		<script src="https://www.google.com/jsapi?key=ABQIAAAAHhP9-H4rbxw1epf3dCVQdhSZ-ksmfV478x1gRUWfTs960BcWIxTjdXxT-_IEjNgoIstJitI7kzXWsQ" type="text/javascript"></script>
+	    <script type="text/javascript">
+
+	    google.load("prototype", "1.7");
+		google.load("scriptaculous", "1.8");
+		
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-16962817-2']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+		</script>
+	</head>
+
+	<body id="{{ page.body_id }}">
+		<h1>
+			<a href="/" id="header">
+				nthj<span id="header-dot">.</span><span id="header-me">me</span>
+				<span id="header-tagline">&mdash; Nathaniel Jones</span>
+			</a>
+			writings
+			<a href="/business">on business</a>, 
+			<a href="/software">on software</a>,
+			<a href="/awesome">on awesome</a>
+			<a href="/hire" id="hire-me">hire me</a>
+			<a href="tel:+15012591726" id="call-me">501.259.1726</a>
+		</h1>
+		
+		<div>
+
+			<h2 id="start">{{ page.title }}</h2>
+		
+			<article>
+		
+				{{ content }}
+			
+				{% unless page.body_id %}
+					<footer>
+						<a href="http://twitter.com/share" class="twitter-share-button" data-count="none" data-via="thenthj">
+							Tweet
+						</a>
+						<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+					
+						&copy; Nathaniel Jones on <time>{{ page.date | date_to_long_string }}</time>
+					</footer>
+				{% endunless %}
+		
+			</article>
+			
+		</div>
+		
+		<aside>
+			<h2>About Nathaniel</h2>
+			
+			<img class="profile" src="https://si2.twimg.com/profile_images/1325577179/gravatar_reasonably_small.jpeg" />
+			
+			<p>
+				Nathaniel Jones is a software consultant with 7
+				 years experience creatively solving businesses&#8217; problems.
+				<a href="/hire">Hire Nathaniel &rarr;</a>
+			</p>
+			
+			<a href="http://www.twitter.com/thenthj"><img src="http://twitter-badges.s3.amazonaws.com/follow_me-c.png" alt="Follow thenthj on Twitter"/></a>
+		
+			<a id="github" href="https://github.com/nthj">
+			  <span>My work on Github</span>
+			  <span>See my code</span>
+			</a>
+		</aside>
+	</body>
+</html>
