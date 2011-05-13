@@ -25,3 +25,32 @@ and will ask to install the following free add-ons into your app:
 * Memcached
 * MongoHQ
 * Redis To Go
+
+CONFIGURATION
+=============
+
+By default, you have several processors...
+* Change Showcase dimensions in app/concerns/processors/showcaser.rb
+* Change out the watermark in config/watermark.png
+* Change Previewer dimensions (thumbnail dimensions) in app/concerns/processors/previewer.rb
+
+USAGE
+=====
+
+To get started, you'll probably want to queue up photos to be processed: 
+
+	heroku rake photos:queue
+	
+Note on Patches/Pull Requests
+=============================
+
+* Fork the project.
+* Make your feature addition or bug fix.
+* Add tests for it. This is important so I don’t break it in a future version unintentionally.
+* Commit, do not mess with rakefile, version, or history. (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Send me a pull request. Bonus points for topic branches.
+
+Copyright
+=========
+
+Copyright © 2011 Nathaniel Jones. See LICENSE for details.
