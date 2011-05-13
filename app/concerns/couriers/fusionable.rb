@@ -19,6 +19,7 @@ module Couriers
       memoize :client
       
       def execute id
+        notify "Adding to Fusionable Queue", id
         Resque.redis.rpush 'fusionable', id
       end
     

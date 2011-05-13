@@ -35,6 +35,17 @@ namespace :photos do
   end
 
   namespace :process do
+    desc 'Map non-fusioned rows'
+    task :coordinates => :environment do
+      Photo.where(:fusion_row_id => nil).count.fdiv(10).ceil.tap do |times|
+        times.times do |i|
+          Photo.skip(i * times).limit(1000).fields(:id).where(:fusion_row_id => nil).each do |photo|
+            Couriers::Fusionable.execute photo.id
+          end
+        end
+      end
+    end
+    
     [:preview, :showcaser].each do |processor|
       desc "Re-render all #{processor.to_s.pluralize}"
       task processor => :environment do
