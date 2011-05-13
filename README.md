@@ -30,6 +30,7 @@ CONFIGURATION
 =============
 
 By default, you have several processors...
+
 * Change Showcase dimensions in app/concerns/processors/showcaser.rb
 * Change out the watermark in config/watermark.png
 * Change Previewer dimensions (thumbnail dimensions) in app/concerns/processors/previewer.rb
