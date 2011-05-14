@@ -18,14 +18,13 @@ Original.find(key).compress(70).resize(270, 167).to(:fit).watermark.save(:medium
 <h3>Optimizing photo processing speed</h3>
 
 <p>
-	Heroku, our web host, allows us to process up to 50 photos at a time.
+	<a href="http://heroku.com">Heroku</a>, our web host, allows us to process up to 50 photos at a time.
 	At first, Shadow took about 30 seconds to process each photo, 
-	but just a few easy changes allowed us to cut this in half &mdash; 
-	we&#8217;re now processing over <strong>11,000 photos per hour</strong>.
+	but just <a href="https://github.com/nthj/shadow/commit/246f865fd95841761a5c59b06dca4f720ba04508#L1L1">a few easy changes</a> 
+	allowed us to cut this in half &mdash; 
+	we&#8217;re now processing over <strong>10,000 photos per hour</strong>.
 </p>
 
-<h3>Sending to Google Maps</h3>
-
 <p>
-	
+	<img alt="Shadow Benchmarks: 203 per worker hour" height="118" src="benchmark.png" width="490" />
 </p>
