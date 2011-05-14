@@ -2,7 +2,7 @@ h1
   :border-bottom dotted #ccc 1px
   :color #777
   :height 9em
-  :margin 0em auto 1em
+  :margin 0em auto 0.8em
   :position relative
   :line-height 1em
   :width 46em
@@ -26,23 +26,23 @@ h1
       :color #111
       
   #visit
-    :background #036 url('http://www.abovephotography.com.au/services/images/logo.png') no-repeat 0 5px
-    +border-radius(6px)
-    +box-shadow
-    :display block
-    :height 122px
-    :position absolute
-    :right 0
-    :text-indent -10000px
-    :top 1em
-    :width 339px
+    :float right
       
 div
   :margin 3em auto
   :width 46em
   
+#examples div
+  :margin 0.75em auto 3em
+  
 p, ul, ol
   :margin-bottom 0.813em
+  
+iframe
+  +border-radius(6px)
+  +box-shadow
+  :height 36em
+  :width 46em
 
 ol
   :margin 0 auto
