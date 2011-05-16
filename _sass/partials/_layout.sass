@@ -50,15 +50,16 @@ iframe
 
 ol
   :margin 0 auto
-  :overflow auto
+  :overflow hidden
   :width 46em
   
   li
     :float left
-    :margin-right 2.7em
-    
-    &#nav-problems
-      :margin-left -0.7em
+    :margin-right 2.25em
+      
+    &#nav-visit
+      :float right
+      :margin-right -0.7em
     
     a
       :display block
@@ -73,3 +74,40 @@ ol
     :font-weight bold
     +linear-gradient(#555, #444)
     :text-decoration none
+
+#call-me
+  :color #333
+  :float right
+  :font
+    :size 1.25em
+    :weight bold
+  :text-decoration none
+  +text-shadow
+  :width 7.8em
+
+
+#hire-me
+  :background #8B947C
+  +border-radius(12px)
+  +box-shadow
+  :color white
+  :float right
+  :font
+    :size 1.5em
+    :weight bold
+  :letter-spacing 0.1em
+  :margin
+    :right 0.35em
+    :top -3.75em
+  :padding 1.15em 1.3em
+  @include background-image(radial-gradient(#c2c5ac,#879179))
+  :text
+    :decoration none
+    :transform uppercase
+  +text-shadow
+
+  &:hover
+    @include background-image(radial-gradient(#c9ceb2,#8b947c))
+
+  &:active
+    @include background-image(radial-gradient(#584a37,#201409))
